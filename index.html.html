@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>B1 Placement Test · Cornelsen + DTÖ — Quiz</title>
+<style>
+:root{
+  --bg:#f4f6fb; --surface:#ffffff; --surface-2:#f7f9fd;
+  --ink:#15181f; --muted:#5f6573; --faint:#9aa0ad;
+  --line:#e6e9f0; --line-2:#eef1f7;
+  --accent:#3b5bdb; --accent-ink:#2f49b0; --accent-soft:#eaeefc;
+  --green:#157f45; --green-soft:#e4f4ea; --green-line:#9cd3b1;
+  --red:#c62a2f; --red-soft:#fbe7e7; --red-line:#eaa6a8;
+  --sel:#3b5bdb; --sel-soft:#eaeefc; --sel-line:#aebbf3;
+  --gold:#b45309; --gold-soft:#fbf0e2; --star:#f59e0b;
+  --shadow:0 1px 2px rgba(20,24,40,.04),0 8px 30px rgba(20,24,40,.07);
+  --shadow-lg:0 12px 50px rgba(20,24,40,.16);
+  --r:18px; --r-sm:12px;
+  --t1:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+html[data-theme="dark"]{
+  --bg:#0e1016; --surface:#181b22; --surface-2:#14171d;
+  --ink:#ecedf2; --muted:#a2a7b4; --faint:#717682;
+  --line:#272b34; --line-2:#21242c;
+  --accent:#8aa0ff; --accent-ink:#a3b4ff; --accent-soft:#1a2030;
+  --green:#46c47e; --green-soft:#16261d; --green-line:#2f6b48;
+  --red:#ff6b6f; --red-soft:#2a1517; --red-line:#6e3134;
+  --sel:#8aa0ff; --sel-soft:#1a2233; --sel-line:#37456f;
+  --gold:#e0a34a; --gold-soft:#2a2113; --star:#fbbf24;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 30px rgba(0,0,0,.4);
+  --shadow-lg:0 12px 50px rgba(0,0,0,.55);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--t1);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5;display:flex;flex-direction:column;min-height:100%;
+  background-image:radial-gradient(1100px 480px at 100% -10%, var(--accent-soft), transparent 60%);}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.wrap{width:100%;max-width:820px;margin:0 auto;padding:0 18px;flex:1;display:flex;flex-direction:column}
+
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-2)}
+.bar{display:flex;align-items:center;gap:12px;padding:13px 0}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.01em}
+.logo{width:34px;height:34px;border-radius:10px;flex:none;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);border:2px solid var(--accent);font-weight:900;font-size:.88rem;box-shadow:var(--shadow)}
+.brand b{font-size:1.02rem;display:block}.brand span{color:var(--muted);font-weight:600;font-size:.78rem}
+.bar .sp{flex:1}
+.icbtn{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:var(--muted);border:1px solid var(--line);background:var(--surface);transition:.15s;flex:none;}
+.icbtn:hover{color:var(--ink);border-color:var(--accent);transform:translateY(-1px)}
+.icbtn svg{width:19px;height:19px}
+
+/* Tiny, soft Header Coffee Button */
+.coffee-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--surface); color: var(--gold); font-weight: 700;
+  padding: 4px 10px; border-radius: 999px;
+  font-size: 0.72rem; text-decoration: none;
+  transition: transform 0.2s cubic-bezier(.22,1,.36,1), border-color 0.2s, background 0.2s;
+  white-space: nowrap;
+  border: 1px solid var(--line);
+}
+.coffee-btn:hover { 
+  transform: translateY(-2px); 
+  border-color: var(--gold); 
+  background: var(--gold-soft);
+}
+
+.sources{display:flex;gap:8px;padding:2px 0 12px}
+.src{flex:1;display:flex;flex-direction:column;gap:2px;padding:11px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);transition:.15s;text-align:left}
+.src b{font-weight:800;font-size:.95rem}
+.src small{color:var(--faint);font-weight:600;font-size:.74rem}
+.src[aria-selected="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.src[aria-selected="true"] small{color:var(--muted)}
+.src:hover:not([aria-selected="true"]){border-color:var(--accent)}
+
+.tabs{display:flex;gap:6px;background:var(--surface-2);border:1px solid var(--line);padding:5px;border-radius:14px}
+.tabs button{flex:1;padding:9px 10px;border-radius:10px;font-weight:700;font-size:.88rem;color:var(--muted);transition:.15s;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+
+.chips{display:flex;gap:8px;overflow-x:auto;padding:14px 0 4px;scrollbar-width:thin}
+.chips::-webkit-scrollbar{height:0}
+.chip{flex:none;padding:7px 13px;border-radius:999px;font-size:.82rem;font-weight:700;border:1.5px solid var(--line);color:var(--muted);background:var(--surface);transition:.15s;display:flex;align-items:center;gap:7px}
+.chip[aria-pressed="true"]{color:var(--ink);border-color:var(--accent);background:var(--accent-soft)}
+.chip small{font-weight:600;color:var(--faint)}
+
+.tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 0 4px}
+.toggle{display:inline-flex;align-items:center;gap:8px;font-size:.83rem;font-weight:600;color:var(--muted);user-select:none;cursor:pointer;}
+.toggle input{display:none}
+.sw{width:38px;height:22px;border-radius:999px;background:var(--line);position:relative;transition:.18s;flex:none}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:.18s}
+.toggle input:checked + .sw{background:var(--green)}
+.toggle input:checked + .sw::after{transform:translateX(16px)}
+.tools .sp{flex:1}
+.tbtn{font-size:.82rem;font-weight:700;color:var(--muted);padding:7px 11px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:inline-flex;gap:6px;align-items:center;transition:.15s}
+.tbtn:hover{color:var(--ink);border-color:var(--accent)}
+.tbtn.on{color:var(--ink);border-color:var(--accent);background:var(--accent-soft)}
+.tbtn svg{width:15px;height:15px}
+
+.prog{display:flex;align-items:center;gap:12px;padding:12px 0 2px}
+.pbar{flex:1;height:7px;border-radius:999px;background:var(--line);overflow:hidden}
+.pbar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-ink));width:0;transition:width .4s cubic-bezier(.22,1,.36,1)}
+.pstat{font-size:.8rem;font-weight:700;color:var(--muted);white-space:nowrap}
+.pstat b{color:var(--ink)}
+.tally{display:flex;gap:10px;font-size:.8rem;font-weight:800}
+.tally .ok{color:var(--green); transition: transform 0.2s}
+.tally .no{color:var(--red); transition: transform 0.2s}
+.tally .streak{color:var(--accent); transition: transform 0.2s}
+.tally span.pop {transform: scale(1.3);}
+
+main{flex:1;display:flex;flex-direction:column;padding:6px 0 26px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px 22px 20px;position:relative;overflow:hidden}
+.card.in{animation:slideIn .35s cubic-bezier(.22,1,.36,1)}
+@keyframes slideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.readbox{border:1px solid var(--line);background:var(--surface-2);border-radius:var(--r-sm);margin-bottom:16px;overflow:hidden}
+.readbox summary{cursor:pointer;list-style:none;padding:11px 14px;font-weight:700;font-size:.84rem;color:var(--accent);display:flex;align-items:center;gap:8px;user-select:none}
+.readbox summary::-webkit-details-marker{display:none}
+.readbox summary .chev{margin-left:auto;transition:.2s}
+.readbox[open] summary .chev{transform:rotate(180deg)}
+.readbox .body{padding:0 15px 14px;font-size:.95rem;line-height:1.6;color:var(--ink);white-space:pre-line}
+.readbox .body .src-en{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);color:var(--muted);font-style:italic;font-size:.88rem}
+
+.q-top{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.q-tag{font-size:.72rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;padding:5px 11px;border-radius:999px;color:var(--accent);background:var(--accent-soft);display:inline-flex;align-items:center;gap:6px}
+.q-type{font-size:.7rem;font-weight:700;color:var(--faint);border:1px solid var(--line);padding:3px 8px;border-radius:999px}
+.q-num{font-size:.74rem;font-weight:700;color:var(--faint);margin-left:auto}
+.mastery{font-size:.75rem; color:var(--star); letter-spacing:2px;}
+
+.q-de{font-size:1.3rem;line-height:1.36;font-weight:700;letter-spacing:-.01em;margin-bottom:7px}
+.q-de .blank{color:var(--accent);font-weight:800;letter-spacing:1px}
+.q-en{font-size:.95rem;color:var(--muted);font-weight:500;font-style:italic;margin-bottom:18px}
+.q-en.hide{display:none}
+
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 14px;border-radius:var(--r-sm);border:1.5px solid var(--line);background:var(--surface-2);transition:transform .15s cubic-bezier(0.4, 0, 0.2, 1), border-color .15s, background .15s; font-size:1rem; cursor:pointer;}
+.opt:hover:not(:disabled){border-color:var(--accent);transform:translateX(4px)}
+.opt:disabled{cursor:default}
+.opt .key{width:29px;height:29px;border-radius:9px;flex:none;display:grid;place-items:center;font-weight:800;font-size:.88rem;background:var(--surface);border:1.5px solid var(--line);color:var(--muted);transition:.15s}
+.opt .txt{flex:1;font-weight:600}
+.opt .txt small{display:block;font-weight:500;color:var(--faint);font-size:.82rem;margin-top:2px;font-style:italic}
+.opt .mark{width:22px;flex:none;opacity:0;transition:.15s}
+.opt .mark svg{width:22px;height:22px}
+.opt.correct{border-color:var(--green-line);background:var(--green-soft)}
+.opt.correct .key{background:var(--green);border-color:var(--green);color:#fff}
+.opt.correct .mark{opacity:1;color:var(--green)}
+.opt.wrong{border-color:var(--red-line);background:var(--red-soft)}
+.opt.wrong .key{background:var(--red);border-color:var(--red);color:#fff}
+.opt.wrong .mark{opacity:1;color:var(--red)}
+.opt.dim{opacity:.5}
+.opt.sel{border-color:var(--sel-line);background:var(--sel-soft)}
+.opt.sel .key{background:var(--sel);border-color:var(--sel);color:#fff}
+
+.fb{display:flex;align-items:center;gap:10px;margin-top:16px;min-height:28px;font-weight:700;font-size:.95rem;opacity:0;transform:translateY(6px);transition:.22s}
+.fb.show{opacity:1;transform:none}
+.fb.ok{color:var(--green)}.fb.no{color:var(--red)}
+.fb svg{width:22px;height:22px;flex:none}
+
+.nav{display:flex;gap:10px;margin-top:16px;align-items:center}
+.btn{padding:12px 18px;border-radius:12px;font-weight:800;font-size:.95rem;transition:.15s;border:1.5px solid transparent;display:inline-flex;align-items:center;gap:8px;cursor:pointer;}
+.btn.primary{background:var(--ink);color:var(--bg);flex:1;justify-content:center}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.btn.ghost{border-color:var(--line);color:var(--muted);background:var(--surface)}
+.btn.ghost:hover{color:var(--ink);border-color:var(--accent)}
+.btn svg{width:17px;height:17px}
+.btn:disabled{opacity:.4;cursor:default;transform:none!important;box-shadow:none!important}
+.kbd-hint{text-align:center;font-size:.74rem;color:var(--faint);margin-top:13px;font-weight:500}
+.kbd-hint kbd{font-family:inherit;font-weight:700;background:var(--surface-2);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;font-size:.72rem;color:var(--muted)}
+
+.schreib .points{list-style:none;display:flex;flex-direction:column;gap:8px;margin:6px 0 6px}
+.schreib .points li{display:flex;gap:9px;align-items:flex-start;font-weight:600;font-size:.98rem}
+.schreib .points li::before{content:"•";color:var(--accent);font-weight:900}
+.model{margin-top:16px;border:1px solid var(--green-line);background:var(--green-soft);border-radius:var(--r-sm);padding:14px 16px;font-size:.96rem;line-height:1.6;white-space:pre-line;animation:slideIn .3s}
+.model h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--green);margin-bottom:8px}
+
+.result{text-align:center;padding:26px 22px}
+.result .badge{width:80px;height:80px;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;animation:pop .5s cubic-bezier(.18,1.4,.4,1);background:var(--accent)}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.result .badge b{color:#fff;font-size:1.6rem;font-weight:900}
+.result h2{font-size:1.5rem;letter-spacing:-.02em;margin-bottom:6px}
+.result .lvl{font-size:2.6rem;font-weight:900;letter-spacing:-.02em;color:var(--accent);margin:6px 0}
+.result .sub{color:var(--muted);font-weight:600;max-width:440px;margin:0 auto 6px}
+.scorebar{display:flex;gap:10px;justify-content:center;margin:18px 0}
+.scorebar .b{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:12px 18px;min-width:96px}
+.scorebar .b .n{font-size:1.4rem;font-weight:900}.scorebar .b .l{font-size:.74rem;color:var(--muted);font-weight:700;text-transform:uppercase}
+.scorebar .b.g .n{color:var(--green)}.scorebar .b.r .n{color:var(--red)}
+
+.done{text-align:center;padding:40px 22px}
+.done .em{font-size:2.8rem;margin-bottom:8px}
+.done h2{font-size:1.35rem;letter-spacing:-.02em;margin-bottom:8px}
+.done p{color:var(--muted);font-weight:600;margin-bottom:18px}
+
+footer{text-align:center;font-size:.75rem;color:var(--faint);padding:14px 0 32px;font-weight:500;line-height:1.7}
+.disclaimer { max-width: 650px; margin: 0 auto; font-style: italic; }
+
+@media(max-width:560px){
+  .q-de{font-size:1.16rem}
+  .brand span{display:none}
+  .src b{font-size:.86rem}
+  .coffee-btn span { display: none; } /* Hide text on very small screens, keep emojis */
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="bar">
+      <div class="brand">
+        <span class="logo">B1</span>
+        <div><b>B1 Placement Test</b><span>Cornelsen · DTÖ A2/B1</span></div>
+      </div>
+      <div class="sp"></div>
+      
+      <!-- Tiny Tip Button -->
+      <a href="https://buymeacoffee.com/TU_ENLACE_AQUI" target="_blank" class="coffee-btn" title="Support Luce!">
+        🐶✨ <span>Ein Leckerli für Luce?</span> 🦴
+      </a>
+
+      <button class="icbtn" id="themeBtn" title="Light/Dark mode" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+    <div class="sources" id="sources"></div>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-mode="learn">📚 Study</button>
+      <button role="tab" aria-selected="false" data-mode="test">📝 Placement Test</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div id="learnCtl">
+    <div class="chips" id="chips"></div>
+    <div class="tools">
+      <label class="toggle"><input type="checkbox" id="tgTrans" checked><span class="sw"></span>Translation</label>
+      <label class="toggle"><input type="checkbox" id="tgRepeat" checked><span class="sw"></span>Repeat mistakes</label>
+      <div class="sp"></div>
+      <button class="tbtn" id="importBtn" title="Import Progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></button>
+      <input type="file" id="fileIn" accept=".json" style="display:none;">
+      <button class="tbtn" id="exportBtn" title="Export Progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></button>
+      <button class="tbtn" id="shuffleBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg><span id="shuffleLbl">Shuffle</span></button>
+      <button class="tbtn" id="resetBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>Reset</button>
+    </div>
+    <div class="prog">
+      <div class="pbar"><i id="pbar"></i></div>
+      <div class="tally"><span class="ok" id="tOk">✓0</span><span class="no" id="tNo">✗0</span><span class="streak" id="tStreak">🔥0</span></div>
+      <div class="pstat"><b id="pCur">0</b>/<span id="pTot">0</span></div>
+    </div>
+  </div>
+  <div id="testCtl" style="display:none">
+    <div class="prog">
+      <div class="pbar"><i id="tpbar"></i></div>
+      <div class="pstat"><b id="tCur">1</b>/<span id="tTot">0</span></div>
+    </div>
+  </div>
+  <main id="stage"></main>
+</div>
+
+<footer id="foot">
+  <div id="foot-desc"></div>
+  <div class="disclaimer">
+    <br>Disclaimer: The DTÖ (Deutsch-Test für Österreich) materials are the intellectual property of the Österreichischer Integrationsfonds (ÖIF). This application is an unofficial, non-commercial tool built for educational and practice purposes.
+  </div>
+</footer>
+
+<script>
+const SOURCES=[
+ {id:'cornelsen', label:'Cornelsen B1', sub:'Placement test · 40 items',
+  desc:'Pluspunkt Deutsch — Leben in Deutschland · Placement test B1 (Author: Dieter Maenner). Same content as the Cornelsen Online-Einstufungstest.',
+  bands:[[18,'B1.1'],[32,'B1.2'],[99,'B2.1']], bandNote:'≤18 → B1.1 · ≤32 → B1.2 · ≥33 → B2.1'},
+ {id:'dtoe', label:'DTÖ A2/B1', sub:'Reading + Writing',
+  desc:'Deutsch-Test für Österreich A2/B1 (ÖIF) — Official model test. Only Reading (Parts 1–5) and Writing. Listening and Speaking not included.',
+  bands:null, bandNote:'DTÖ A2/B1 Reading (items 21–45) + Writing (model card).'},
+ {id:'ut1', label:'DTÖ Practice Test 1', sub:'Reading B1 · Parts 3–5',
+  desc:'Deutsch-Test für Österreich A2/B1 (ÖIF) — Practice Test 1. Only Reading: reading comprehension (Part 3), house rules (Part 4) and grammar fill-in-the-blanks (Part 5).',
+  bands:null, bandNote:'15 items of Reading B1 (comprehension + grammar).'},
+];
+const TEXTS={
+ A:{de:"Im Haus von Familie Kranz leben mehrere Generationen unter einem Dach. Das hat viele Vorteile, aber es ist auch nicht immer einfach. Die Meinungen in der Familie sind oft unterschiedlich und dann kann es Streit geben. Aber das Zusammenleben funktioniert gut, weil es für alle Regeln gibt. So gibt es zum Beispiel einen Plan, wann wer die Gartenarbeit oder den Hausputz machen muss.",
+    en:"Several generations live together in the Kranz family home. It has advantages, but it's not always easy: opinions differ and there can be arguments. Still, living together works well because there are rules (e.g. a schedule for gardening or cleaning)."},
+ B:{de:"In Deutschland gibt es in allen Bundesländern Verbraucherzentralen mit ungefähr 200 Beratungsstellen. Ziel ist es, die Verbraucher bei Fragen des privaten Konsums zu beraten und sie zu informieren, zum Beispiel bei Fragen zu Kaufverträgen, zu Krediten, zu Versprechen aus Gewinnspielen oder zu Versicherungen. Auch wenn man seinen Stromanbieter wechseln möchte oder Fragen zu Lebensmitteln und Ernährung hat, helfen die Verbraucherzentralen weiter. Die Verbraucherzentralen erhalten finanzielle Unterstützung durch den Staat. Trotzdem müssen sie, um arbeiten zu können, auch Beiträge von den Kunden erheben. Einfache Beratungen sind oft kostenlos, für Hilfe bei schwierigeren Fragen muss man bezahlen. Im Internet gibt es außerdem sehr viele Broschüren der Verbraucherzentralen, die man kostenlos bekommt.",
+    en:"In Germany there are consumer advice centers (Verbraucherzentralen) in all states, with ~200 advice points. They advise on contracts, loans, sweepstakes, insurance, changing electricity providers, food, etc. They receive state support, but also charge clients: simple consultations are usually free; you have to pay for help with difficult issues. There are many free brochures online."},
+ C:{de:"Claudia erzählt: Ich habe einen eigenen Friseursalon. Ein Vorteil ist, dass ich jetzt endlich einmal Geld verdienen kann. Früher, als ich angestellt war, habe ich sehr schlecht verdient. Das ist heute sehr viel besser. Ein Problem ist die Konkurrenz. In Kaufhäusern kann man sich die Haare sehr billig schneiden lassen. Trotzdem sind aber viele Kunden bei mir geblieben, weil wir sehr auf Beratung und Service achten und uns viel Zeit für die Kunden nehmen. Ein weiteres Problem ist die Sozialversicherung. Die private Rentenversicherung ist sehr teuer. Obwohl ich sie als Selbstständige nicht abschließen muss, habe ich trotzdem eine abgeschlossen. Auch wenn ich später vielleicht nicht viel Rente bekommen werde, ist das eine kleine Sicherheit. Trotz aller Nachteile bin ich sehr gerne selbstständig. Ich bin unabhängig und kann frei entscheiden, welche Haarschnitte und Dienstleistungen ich anbiete.",
+    en:"Claudia has her own hair salon. Advantage: she earns money now (before, as an employee, she earned very little). Problem: competition (department stores cut hair very cheaply), but many customers stay for the good advice and service. Another problem: social security; private pension insurance is expensive and, although not mandatory for self-employed, she took one as a small security. Despite everything, she loves being self-employed: she is independent and decides what services to offer."},
+ D:{de:"Robert Schmidt, 39 Jahre: Wir tun in unserer Familie viel für den Umweltschutz. Wenn wir einkaufen, benutzen wir nicht das Auto, sondern das Fahrrad oder öffentliche Verkehrsmittel. Und wichtig ist für uns auch, dass wenig Müll entsteht. Deshalb kaufen wir, wann immer das möglich ist, Waren ohne oder mit nur wenig Verpackung. Darauf haben wir früher nicht so geachtet. Auch die Mülltrennung ist wichtig. Ich denke, dass sich hier in den letzten Jahren viel verändert hat. Die Leute sind alle viel umweltbewusster geworden. Bei uns im Haus trennt jeder inzwischen den Müll. Auch in der Wohnung kann man viel Energie sparen. Wir heizen im Winter nur die Räume, die wir auch wirklich benutzen. Bevor wir die Wohnung verlassen, stellen wir die Heizung immer auf 18 Grad und schalten das Licht und die Elektrogeräte aus.",
+    en:"Robert Schmidt (39) says his family does a lot for the environment: they use bikes or public transport for shopping, not the car; they buy products with little or no packaging to generate less waste; they separate their trash. He thinks people have become more aware. At home they save energy: in winter they only heat the rooms they use and, when leaving, they set the heating to 18° and turn off lights and appliances."},
+ W:{de:"Wegweiser: Bürger-Service Salzburg\n\n2. OG — Kinder & Jugendliche: Kindergärten und Horte, Anmeldung, Kinderspielplätze, Beratungsstellen, Informationen: Urlaub in Jugendgruppen, Jugendkarte, Sportangebote für Jugendliche.\n2. OG — Bildung und Weiterbildung: Nachmittagsbetreuung in Pflichtschulen, Pflichtschulen, Schulservice, Informationen zum Studium, Volkshochschul-Kurse.\n2. OG — Senioren-Service: Seniorenbetreuung (Haushaltshilfe, Begleitservice), Taxigutscheine, Seniorenmittagstisch, Seniorenheime.\n2. OG — Allgemeine Einrichtungen: Fotoautomat, Kopierer.\n\n1. OG — WC; Integrationsbüro: Finanzielle Unterstützung für AusländerInnen, Multikulturelle Freizeitangebote, Beratung (Aufenthalt und Niederlassung), Hilfe bei Wohnungssuche und Umzug.\n1. OG — Melde-Service und Dokumente: Ab- und Ummeldung, Bescheinigungen, Führerscheinstelle, Reisepässe.\n\nEG — Eltern & Kind: Beratung und Schwangerschaftsbegleitung, Vermittlung von Babysittern, Erziehungsberatung, Adoption.\nEG — Freizeit: Gesangs- und Musikvereine, Sportvereine in der Stadt.",
+    en:"Bürger-Service (Salzburg) Directory. 2nd floor (2. OG): Children & youth (kindergartens, registration, playgrounds, counseling, youth group holidays, youth card, sports), Education/training, Senior service, General facilities (photo booth, copier). 1st floor (1. OG): WC; Integration office (financial help for foreigners, multicultural leisure, residence counseling, help with housing and moving); Registration and documents (registration/deregistration, certificates, driver's licenses, passports). Ground floor (EG): Parents & children (pregnancy, babysitter placement, educational counseling, adoption); Leisure (choirs/music, sports clubs)."},
+ AN:{de:"a) Kinderarztpraxis Dr. Sandlhofer (Linz) sucht Verstärkung im Büro. Auch ohne abgeschlossene Büroausbildung bzw. mit anderer Ausbildung. Arbeitszeit ca. 20 Stunden pro Woche, Gehalt nach Vereinbarung.\nb) DER LUSTIGE BAUERNHOF — neues Kartenspiel für Kinder von 6 bis 12 Jahren. Im Spielwarenhandel oder unter www.spielewelt-at.eu.\nc) Spiele ohne Grenzen — Wir sammeln Spielwaren und Stofftiere und schicken sie an Kinder in ärmeren Ländern. Haben Sie Spiele oder Stofftiere, die Ihre Kinder nicht mehr brauchen? Melden Sie sich — Abholung kostenlos!\nd) Second-Hand-Laden Cordoba am Burgtor — Hosen und Pullover, wie neu, für Kinder bis 8 Jahre. Beste Qualität, faire Preise. Burggasse 12, Linz.\ne) NEUERÖFFNUNG — Spielwaren für die Kleinsten! Holzspielwaren, Lernspielzeug, alles für die Kleinen bis 6 Jahre. Spielparadies Hüttl, Domplatz 4, Linz.\nf) Verkäufer/in gesucht! Supermarkt Gasser in Linz sucht zuverlässige Verkäuferinnen für die Feinkostabteilung. Vollzeitstelle, gute Bezahlung.\ng) LUDWIGSHOF — TAGESAUSFLUG MIT DER GANZEN FAMILIE! Besuchen Sie einen ganzen Tag lang unseren Hof in der Steiermark: Streichelzoo, Abenteuerspielplatz, Museum, Gasthaus. 8580 Köflach.\nh) Kinderspielgruppe „Sterntaler“ — Mo bis Fr 16–18 Uhr, für Kinder von 3 bis 6 Jahren. Den Eltern bieten wir Kaffee und Kuchen an — Sie können sich in Ruhe über Ihre Kleinen unterhalten. Betreuung durch ausgebildete Erzieherinnen.",
+    en:"Notices: a) office job in pediatric clinic (~20 h/wk, other training accepted); b) card game for children 6-12; c) collect used toys (free pickup); d) second-hand clothes for children up to 8 years; e) toy store for the little ones (up to 6 years); f) FULL TIME salesperson wanted (delicatessen); g) ONE DAY trip to a farm with the family; h) children's playgroup 3-6 years: parents chat with coffee while children play."},
+ T1:{de:"Bauarbeiten verärgern Bürger\nSeit Monaten beschäftigt der Neubau des Hauptbahnhofs die Bürger im 10. Gemeindebezirk von Wien. Wer in der Nähe der Baustelle wohnt, hat seit langer Zeit Probleme mit dem Schlaf. „Zu Beginn wurde sogar am Abend bis 21 Uhr arbeitete“, berichtet Heinz Berger, der nur wenige Häuser von der Baustelle entfernt wohnt. „Ich habe dann mit den Nachbarn gemeinsam Unterschriften gesammelt und sie dem Bezirksvorsteher gebracht – erst dann wurde früher Feierabend gemacht.“ Ein kleiner Erfolg – aber eben nur ein kleiner. Andere Nachbarn erzählen, dass die Bauarbeiter bereits um 5 Uhr früh mit den Arbeiten beginnen und manchmal auch am Samstag arbeiten. Die Anrainer rund um den zukünftigen Wiener Hauptbahnhof haben nur einen Wunsch: endlich wieder in Ruhe schlafen können.",
+    en:"The construction of the new main station in Vienna (district 10) has been annoying neighbors for months: they have trouble sleeping. At first, work went on until 9 PM; after collecting signatures and taking them to the district head, they finish earlier. But other neighbors say the workers start at 5 AM and sometimes work on Saturdays. The residents just want to sleep peacefully again."},
+ T2:{de:"Liebe Eltern,\nbald beginnen die Sommerferien und wie Sie sicher wissen, wird dann auch wieder unser großes Sommerfest stattfinden. Aber nicht nur das: Auch unsere Frau Direktor, Frau Baumgartner, geht mit Ende dieses Schuljahres in Pension. Deshalb möchten wir Frau Baumgartner ein besonderes Geschenk machen: Ein Bild von allen Schülern und Eltern. Wir werden das Bild am nächsten Samstag vor dem Schulgebäude machen. Bitte geben Sie uns Bescheid, ob Sie am Samstag um 15 Uhr kommen können.\nAußerdem brauchen wir noch Helfer für das Sommerfest am selben Tag: Wenn Sie einen Salat oder Kuchen mitbringen möchten, melden Sie sich doch bitte bei Frau Wagner, unserer Sekretärin. Sie organisiert Essen und Getränke für das Fest.\nMit freundlichen Grüßen und vielem Dank für Ihre Mitarbeit, F. Gruber, Assistentin",
+    en:"School letter: summer holidays start soon and there will be a summer party. Also, the principal, Frau Baumgartner, is retiring at the end of the school year; they want to give her a picture of all students and parents, next Saturday at 3 PM in front of the school — please let them know if you can come. They also need helpers for the party (bring salad or cake): notify the secretary, Frau Wagner, who organizes food and drinks."},
+ T3:{de:"Sehr geehrter Herr Sanchez,\nmit Bedauern haben wir die Kündigung Ihrer Haftpflichtversicherung erhalten. Selbstverständlich werden wir den Termin wie gewünscht berücksichtigen. Uns interessiert aber sehr der Grund für Ihre Kündigung: Waren Sie mit dem Service nicht zufrieden? Haben Sie eine günstigere Versicherung gefunden? Wir würden uns freuen, wenn Sie weiterhin unser Kunde bleiben. Deshalb haben wir ein besonderes Angebot für Sie: Bleiben Sie bei unserer Versicherung und Sie zahlen für die nächsten 6 Monate keinen Beitrag! Ihr Versicherungsschutz bleibt natürlich bestehen – Sie sind also auch in dieser Zeit rundum versichert. Haben Sie Interesse? Dann rufen Sie uns an – alles andere machen wir für Sie!\nMit freundlichen Grüßen, Hans Schubert, ÖVG",
+    en:"Letter from the insurance company to Herr Sanchez: they received the cancellation of his liability insurance and will respect the date. They ask for the reason (bad service? cheaper insurance?). To retain him, they offer: if he stays, he pays no premiums for the next 6 months, keeping the coverage. If interested, he should call."},
+ PB:{de:"Alginal extra – Packungsbeilage\n1. Was ist Alginal extra? Ein entzündungshemmendes und schmerzstillendes Arzneimittel. Angewendet bei leichten bis mäßig starken Schmerzen (z. B. Kopf-, Zahnschmerzen) und Fieber.\n2. Vor der Einnahme beachten: Alginal extra darf NICHT eingenommen werden, wenn Sie überempfindlich (allergisch) gegenüber Ibuprofen sind, wenn Sie früher mit Asthmaanfällen/Hautreaktionen auf Acetylsalicylsäure oder andere Entzündungshemmer reagiert haben, wenn Sie schwanger sind, und von Kindern unter 6 Jahren.\n3. Einnahme: Ohne ärztlichen Rat nicht länger als 4 Tage. Übliche Einzeldosis: Kinder 6–14 Jahre ½ Filmtablette; ab 15 Jahren und Erwachsene ½ bis 1 Filmtablette. Pro Tag: Kinder bis 14 Jahren höchstens ½ Filmtablette, Jugendliche/Erwachsene höchstens 2. Nehmen Sie die Tabletten unzerkaut mit einem Glas Wasser WÄHREND einer Mahlzeit ein.\n4. Mögliche Nebenwirkungen: sehr selten Magenbeschwerden; selten Störungen der Blutbildung; gelegentlich Seh-/Ohrstörungen.\n5. Aufbewahrung: Für Kinder unzugänglich; nach dem Verfallsdatum nicht mehr verwenden.",
+    en:"Package leaflet for 'Alginal extra' (anti-inflammatory and painkiller, for mild/moderate pain and fever). Must NOT be taken: if allergic to ibuprofen, if you had asthma/skin reactions with acetylsalicylic acid or other anti-inflammatories, if pregnant, nor by children under 6. Without medical advice, no more than 4 days. Dose: children 6-14 years ½ tablet; 15+ and adults ½-1. Per day: children up to 14 max ½; teens/adults max 2. Take whole with water DURING a meal."},
+ L5:{de:"Sehr geehrte Frau Schickl,\nletzte Woche habe ich bei [40] einen Pullover bestellt. [41] gestern das Paket kam, habe ich mich sehr gefreut. Aber leider haben Sie mir den falschen Pullover geschickt! Ich [42] einen blauen Pullover in Größe L für 29,90 Euro, [43] ich habe einen roten bekommen. Was soll ich tun? Und [44] wann bekomme ich den richtigen Pullover? Bitte [45] Sie mir schnell!\nMit freundlichen Grüßen, Maria Gruber",
+    en:"Maria Gruber's letter: last week she ordered a sweater; she was happy when the package arrived yesterday, but they sent the wrong one. She wanted a blue one (size L, 29.90 €) and received a red one. She asks what to do and by when she'll receive the right one, and asks for a quick reply. (Fill in the blanks 40-45.)"},
+ UT1_T1:{de:"Liebe Vereinsmitglieder,\nBald ist es wieder soweit. Wie jedes Jahr findet auch heuer wieder unsere Jahreshauptversammlung im Café „Lindenhof“ in der Siedlerstraße 23 statt. Der Termin ist heuer der 30. September! Wir beginnen wie immer pünktlich um 9.00 Uhr. Die Teilnahme ist für alle Vereinsmitglieder Pflicht. Wir beenden die Versammlung wie immer um 12.00 Uhr. Um 13.00 Uhr gibt es das gemeinsame Mittagessen und anschließend unser traditionelles Herbstfest mit vielen Attraktionen und freiem Eintritt:\n• internationale Musikgruppen\n• Bastel-Workshop für die Kinder (bis 17.00 Uhr)\n• Tanz-Workshop für die Erwachsenen\n• Gratis-Buffet mit köstlichen Speisen und Getränken\nSelbstverständlich sind Freunde und Bekannte von Vereinsmitgliedern herzlich willkommen! Ich freue mich auf euer Kommen! Eduard Müller (Obmann)",
+    en:"Letter to members: like every year, there's an annual General Assembly at café 'Lindenhof' (Siedlerstraße 23), on September 30, from 9 to 12; attendance is MANDATORY for all members. At 1 PM, lunch together and then the autumn festival with many attractions and FREE ENTRY: international music groups, crafts workshop for kids, dance workshop for adults and free buffet. Friends and acquaintances of members are welcome."},
+ UT1_T2:{de:"Gesund durch mehr Bewegung\nEine aktuelle Studie über das Bewegungsverhalten der österreichischen Bevölkerung zeigt, dass sich viele Menschen in Österreich zu wenig bewegen. Nur etwa 20 Prozent der 11- bis 15-jährigen Schulkinder bewegen ihren Körper so, dass die körperliche Bewegung ihre Gesundheit fördert. Bei den Erwachsenen ist es nicht viel besser: Hier bewegt sich nur zirka ein Viertel aller Erwachsenen so, dass es gesundheitsfördernd ist. Mehr als ein Drittel der Bevölkerung betreibt keine körperlichen Aktivitäten, die wenigstens ein bisschen anstrengend sind. Je älter die Menschen sind, desto weniger bewegen sie sich. Die Förderung der Gesundheit durch mehr Bewegung ist daher in jedem Alter dringend notwendig.",
+    en:"'Healthy with more movement': a current study shows many people in Austria move too little. Only ~20% of schoolchildren aged 11-15 move in a healthy way; among adults, only ~1/4. More than a third do no somewhat strenuous physical activity at all. The older they are, the less they move. Therefore, promoting health with more movement is urgent at any age."},
+ UT1_T3:{de:"Sehr geehrter Herr Broder,\nWir beziehen uns auf unsere Rechnung Nr. 3456 vom 19.12. über € 324,60. Sie haben damals mittels Bestellschein Pullover, Jacken und Hosen bestellt. Der Rechnungsbetrag war am 20.01. fällig. Wir konnten jedoch bisher keinen Zahlungseingang auf unserem Konto feststellen. Wir ersuchen Sie, den offenen Rechnungsbetrag von € 324,60 zuzüglich Mahnspesen € 25,00, somit gesamt € 349,60, so bald als möglich, spätestens jedoch bis zum 15.02. zu überweisen. Sollte dies in der Zwischenzeit schon erfolgt sein, betrachten Sie dieses Schreiben als gegenstandslos. Mit freundlichen Grüßen, Firma Textil & Co",
+    en:"Dunning letter (Firma Textil & Co) to Herr Broder: referring to invoice no. 3456 (324.60 €) for sweaters, jackets and pants, due on Jan 20. They haven't registered the payment. They ask him to pay the outstanding amount (324.60 €) PLUS reminder fees (25.00 €) = 349.60 €, by Feb 15 at the latest. If already paid, ignore this letter."},
+ UT1_HO:{de:"Hausordnung\nReinigung/Sauberkeit: Alle Mitbewohner müssen die gemieteten Räume reinigen und sauber halten. Der Müll muss in den Müllraum gebracht werden.\nBeschädigungen: Wer in den Gemeinschaftsräumen absichtlich etwas beschädigt, muss den Schaden bezahlen.\nKeine Bau-Veränderungen: Mieter dürfen ohne Bewilligung des Hauseigentümers keine Wand einreißen oder neu bauen.\nAuszug: Wer auszieht, muss die Wohnung so zurückgeben, wie sie übernommen wurde. Schäden müssen repariert werden. Alle Schlüssel müssen zurückgegeben werden.\nFriedliches Zusammenleben: Alle Mieter sollen friedlich zusammenleben; der Hausfrieden soll nicht gestört werden.\nNachtruhe: Von 22.00 bis 6.00 Uhr darf die Nachtruhe nicht gestört werden. An Sonn- und Feiertagen gilt die Wochenend-Ruhe. Radio, Musik und Fernsehen sind in dieser Zeit nur in Zimmerlautstärke erlaubt. Für das Spiel der Kinder stehen der Kinderspielraum und der Kleinkinderspielplatz zur Verfügung.\nHaustor: Das Haustor muss geschlossen sein, darf aber nicht mit einem Schlüssel abgesperrt werden.\nHaustiere: Das Halten von Haustieren ist nur nach schriftlicher Genehmigung der Hausverwaltung erlaubt. Gefährliche Tiere oder Tiere, die nicht in eine Wohnung gehören, sind verboten.",
+    en:"House rules: every tenant cleans what they rent and takes trash to the trash room; whoever intentionally damages common areas pays; no tearing down/building walls without owner's permission; when moving out, return the apartment as received, repair damages and return ALL keys; peaceful coexistence; NIGHT QUIET from 10 PM to 6 AM (and weekend rest on Sundays/holidays), radio/TV at low volume only; children play in the playroom/playground; front door must be CLOSED but NOT locked; pets only with written permission, and dangerous animals forbidden."},
+ UT1_L5:{de:"Sehr geehrte Frau Sägebrecht!\nIch habe Ihre Anzeige im „Stadtblatt“ gelesen und interessiere mich sehr für das Urlaubsangebot für die ganze Familie auf Ihrem Bauernhof. Ich möchte gerne den Urlaub für meine Familie buchen, [40] mir und meinem Mann das Kinderprogramm so gut gefällt. Wir möchten gerne unseren Urlaub an einem Ort verbringen, [41] eine Familie mit Kindern willkommen ist. Unsere Kinder freuen sich [42] darauf, [43] sie die Tiere streicheln und füttern dürfen. Deshalb [44] wir gerne bei Ihnen buchen. Wir würden am 1. August am späten Nachmittag ankommen und am 10. August wieder abreisen. Das sind also 9 Nächte. Bitte schreiben Sie mir, [45] Sie uns in diesem Zeitraum zwei Doppelzimmer mit Frühstück vermieten können. Über eine positive Antwort würden wir uns sehr freuen! Mit freundlichen Grüßen, Elisabeth Berger",
+    en:"Letter from Elisabeth Berger to Frau Sägebrecht: she saw the ad in the 'Stadtblatt' and is interested in the family holiday offer on her farm; wants to book (she and her husband like the kids' program), in a place where a family with kids is welcome; the kids are looking forward to petting and feeding the animals. They would arrive on August 1st in the afternoon and leave on the 10th (9 nights). She asks her to write if she can rent them two double rooms with breakfast. (Fill in blanks 40-45.)"},
+};
+
+const DATA=[
+/* ===== Cornelsen Pluspunkt B1 — Einstufungstest (40 items) ===== */
+{src:'cornelsen',g:'Sprachbausteine',n:'1',t:'mc4',c:1,de:"Max macht es viel Spaß, am Wochenende mit seinen Freunden ____.",en:"Max enjoys ___ with his friends on the weekend very much. (separable: einkaufen + zu → einzukaufen)",o:[["a) kaufen ein",""],["b) einzukaufen",""],["c) einkaufen",""],["d) zu einkaufen",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'2',t:'mc4',c:3,de:"____ ich sechs Jahre alt war, bin ich in die Schule gekommen.",en:"When I was six years old, I started school. (single action in the past → als)",o:[["a) Wann",""],["b) Wie",""],["c) Wenn",""],["d) Als",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'3',t:'mc4',c:0,de:"Herr Ehrlicher nimmt ein Taxi, ____ nicht zu spät zu kommen.",en:"Mr. E. takes a taxi to not arrive late. (purpose, same subject → um … zu)",o:[["a) um",""],["b) damit",""],["c) weil",""],["d) –",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'4',t:'mc4',c:0,de:"Ich suche einen Partner mit ____ Job.",en:"I am looking for a partner with a good job. (mit + dative; Job masc.)",o:[["a) einem guten",""],["b) ein guter",""],["c) einen guten",""],["d) einer guten",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'5',t:'mc4',c:1,de:"Meiner Meinung ____ sollte man ehrlich sein.",en:"In my opinion, one should be honest. (meiner Meinung nach)",o:[["a) auf",""],["b) nach",""],["c) über",""],["d) zu",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'6',t:'mc4',c:2,de:"Auf dem Markt gibt es heute ____ Salat.",en:"Today at the market there is fresh green salad. (accus. without article → strong declension)",o:[["a) frisch grün",""],["b) frische grüne",""],["c) frischen grünen",""],["d) frischer grüner",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'7',t:'mc4',c:3,de:"Abends bin ich müde. _____ nehme ich mir Zeit für die Kinder.",en:"In the evenings I am tired. Nevertheless I make time for the kids. (trotzdem)",o:[["a) Aber",""],["b) Obwohl",""],["c) Sondern",""],["d) Trotzdem",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'8',t:'mc4',c:1,de:"Ich möchte eine gute Arbeit finden. ____ lerne ich Deutsch.",en:"I want to find a good job. Therefore I am learning German. (deshalb)",o:[["a) Denn",""],["b) Deshalb",""],["c) Und",""],["d) Weil",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'9',t:'mc4',c:3,de:"____ das Wetter schlecht ist, fahre ich mit dem Rad.",en:"Although the weather is bad, I go by bike. (obwohl)",o:[["a) Als",""],["b) Denn",""],["c) Deshalb",""],["d) Obwohl",""]]},
+{src:'cornelsen',g:'Lesen',n:'10',t:'rf',c:0,tx:'A',de:"Richtig oder falsch? Die Generationen leben gut zusammen, obwohl es immer wieder Probleme gibt.",en:"The generations live well together, although there are always problems. True or False?"},
+{src:'cornelsen',g:'Sprachbausteine',n:'11',t:'mc4',c:0,de:"Während ____ Studiums musste ich arbeiten.",en:"During my studies I had to work. (während + genitive; Studium neutro)",o:[["a) des",""],["b) dem",""],["c) das",""],["d) der",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'12',t:'mc4',c:3,de:"Nachdem ich das Essen ____, sehe ich fern.",en:"After I made the food, I watch TV. (nachdem + Perfekt, main clause in present)",o:[["a) gemacht hatte",""],["b) machte",""],["c) mache",""],["d) gemacht habe",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'13',t:'mc4',c:2,de:"Die Arbeitsplätze sind sicher, denn die Mitarbeiter haben ____ für drei Jahre.",en:"The jobs are secure, because the employees have protection against dismissal for 3 years.",o:[["a) Betriebsrat","works council"],["b) Konkurrenz","competition"],["c) Kündigungsschutz","protection against dismissal"],["d) Arbeitskonflikt","labor dispute"]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'14',t:'mc4',c:1,de:"Früher ____ die Menschen oft sieben Tage die Woche ohne Kündigungsschutz und Krankenversicherung.",en:"In the past people often worked 7 days a week without dismissal protection or insurance. (Präteritum, plural)",o:[["a) arbeiten",""],["b) arbeiteten",""],["c) arbeitete",""],["d) gearbeitet",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'15',t:'mc4',c:0,de:"Ich kann mir kaum vorstellen, dass es früher keine E-Mails ____.",en:"I can hardly imagine that in the past there were no e-mails. (es gab)",o:[["a) gab",""],["b) gabt",""],["c) gabst",""],["d) gaben",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'16',t:'mc4',c:3,de:"Wenn ich jetzt Urlaub hätte, ____ ich nach Spanien fahren.",en:"If I had vacations now, I would go to Spain. (Konjunktiv II: würde … fahren)",o:[["a) wäre",""],["b) wurde",""],["c) hätte",""],["d) würde",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'17',t:'mc4',c:2,de:"Zieh ____ einen Pullover an, es ist kalt.",en:"Put on a sweater, it's cold. (reflexive in dative: sich etwas anziehen)",o:[["a) sich",""],["b) sie",""],["c) dir",""],["d) dich",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'18',t:'mc4',c:0,de:"Wenn ich Gitarre spielen ____, würde ich in einer Band spielen.",en:"If I could play the guitar, I would play in a band. (könnte)",o:[["a) könnte",""],["b) sollte",""],["c) hätte",""],["d) müsste",""]]},
+{src:'cornelsen',g:'Lesen',n:'19',t:'rf',c:0,tx:'B',de:"Richtig oder falsch? Die Verbraucherzentralen bieten viele kostenlose Dienstleistungen an.",en:"Consumer centers offer many free services. True or False?"},
+{src:'cornelsen',g:'Lesen',n:'20',t:'rf',c:1,tx:'B',de:"Richtig oder falsch? Bei den Verbraucherzentralen kann man gesunde Lebensmittel kaufen.",en:"You can buy healthy food at the consumer centers. True or False?"},
+{src:'cornelsen',g:'Sprachbausteine',n:'21',t:'mc4',c:0,de:"Der Motor ist kontrolliert ____.",en:"The engine has been checked. (passive in Perfekt: ist … worden)",o:[["a) worden",""],["b) wird",""],["c) wurde",""],["d) geworden",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'22',t:'mc4',c:1,de:"Am Samstag wird ein Fest ____.",en:"A party is celebrated on Saturday. (passive: wird … gefeiert)",o:[["a) feiern",""],["b) gefeiert",""],["c) feiert",""],["d) zu feiern",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'23',t:'mc4',c:0,de:"Sabrina fährt jedes Jahr an ____ Urlaubsort.",en:"Sabrina travels to the same holiday destination every year. (an + accusative, direction)",o:[["a) denselben",""],["b) derselbe",""],["c) dieselbe",""],["d) demselben",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'24',t:'mc4',c:2,de:"Wegen Bauarbeiten ist der rechte Fahrstreifen ____.",en:"Due to roadworks, the right lane is closed.",o:[["a) verboten","forbidden"],["b) gestoppt","stopped"],["c) gesperrt","closed/blocked"],["d) besetzt","occupied"]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'25',t:'mc4',c:2,de:"Nachdem Robert ein Existenzgründungsseminar ____, konnte er sich leichter selbstständig machen.",en:"After having attended a seminar, he was able to become self-employed more easily. (nachdem + Plusquamperfekt, main clause in past)",o:[["a) besucht",""],["b) besuchte",""],["c) besucht hatte",""],["d) besucht hat",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'26',t:'mc4',c:3,de:"Auf der Bank: Wir möchten einen Friseursalon aufmachen und würden gern einen Kredit ____.",en:"At the bank: we want to open a hair salon and take out a loan. (einen Kredit aufnehmen)",o:[["a) einrichten","install/furnish"],["b) anmelden","register"],["c) eröffnen","open/inaugurate"],["d) aufnehmen","take out (a loan)"]]},
+{src:'cornelsen',g:'Lesen',n:'27',t:'rf',c:0,tx:'C',de:"Richtig oder falsch? Claudia geht es finanziell besser als früher.",en:"Claudia is doing better financially than before. True or False?"},
+{src:'cornelsen',g:'Lesen',n:'28',t:'rf',c:1,tx:'C',de:"Richtig oder falsch? Claudia findet eine Rentenversicherung nicht wichtig, weil sie glaubt, dass sie später sowieso nicht viel Rente bekommen wird.",en:"Claudia thinks a pension insurance is not important because she will get little pension anyway. True or False?"},
+{src:'cornelsen',g:'Sprachbausteine',n:'29',t:'mc4',c:2,de:"Seit ____, bin ich viel gesünder.",en:"Since I've been doing sports, I'm much healthier. (seit + verb at the end)",o:[["a) ich mache Sport",""],["b) mache ich Sport",""],["c) ich Sport mache",""],["d) Sport mache ich",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'30',t:'mc4',c:2,de:"Berlin ist ____ Stadt Deutschlands.",en:"Berlin is the largest city in Germany. (superlative with article)",o:[["a) größten",""],["b) größte",""],["c) die größte",""],["d) am größten",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'31',t:'mc4',c:2,de:"Herr Kohl versucht, möglichst viel Müll zu ____.",en:"Mr. Kohl tries to avoid as much trash as possible.",o:[["a) lassen","leave/let"],["b) sparen","save"],["c) vermeiden","avoid"],["d) vermissen","miss"]]},
+{src:'cornelsen',g:'Lesen',n:'32',t:'rf',c:1,tx:'D',de:"Richtig oder falsch? Um die Umwelt zu schützen, kauft Familie Schmidt weniger ein als früher.",en:"To protect the environment, the Schmidt family buys less than before. True or False?"},
+{src:'cornelsen',g:'Lesen',n:'33',t:'rf',c:0,tx:'D',de:"Richtig oder falsch? Immer mehr Menschen achten darauf, den Müll zu trennen.",en:"More and more people make sure to separate trash. True or False?"},
+{src:'cornelsen',g:'Lesen',n:'34',t:'rf',c:1,tx:'D',de:"Richtig oder falsch? Familie Schmidt schaltet im Winter nachts die Heizung aus.",en:"The Schmidt family turns off the heating at night in winter. True or False?"},
+{src:'cornelsen',g:'Sprachbausteine',n:'35',t:'mc4',c:2,de:"Im Park sind viele ____ Kinder.",en:"In the park there are many playing children. (Partizip I as adjective)",o:[["a) spielenden",""],["b) spielend",""],["c) spielende",""],["d) spielender",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'36',t:'mc4',c:0,de:"Ich mag sowohl Tee ____ Kaffee.",en:"I like both tea and coffee. (sowohl … als auch)",o:[["a) als auch",""],["b) oder",""],["c) noch",""],["d) sondern auch",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'37',t:'mc4',c:2,de:"Es gibt Wörter, an die ich mich nur schwer ____ kann.",en:"There are words that are hard for me to remember. (sich an etwas erinnern)",o:[["a) merken",""],["b) vergessen",""],["c) erinnern",""],["d) denken",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'38',t:'mc4',c:0,de:"Je mehr man Deutsch spricht, desto ____.",en:"The more one speaks German, the more confident one becomes. (je … desto + comparative + verb + subject)",o:[["a) sicherer wird man",""],["b) wird man sicherer",""],["c) sicher wird man",""],["d) wird man sicher",""]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'39',t:'mc4',c:1,de:"Die Mitglieder der Parlamente nennt man ____.",en:"The members of the parliaments are called deputies/representatives.",o:[["a) Bürger","citizens"],["b) Abgeordnete","deputies/MPs"],["c) Minister","ministers"],["d) Volk","people"]]},
+{src:'cornelsen',g:'Sprachbausteine',n:'40',t:'mc4',c:3,de:"Bald ____ ich perfekt Deutsch sprechen.",en:"Soon I will speak German perfectly. (Futur I: werde … sprechen)",o:[["a) wurde",""],["b) worden",""],["c) wird",""],["d) werde",""]]},
+/* ===== DTÖ A2/B1 — Modelltest ÖIF · Lesen (Teile 1–5) + Schreiben ===== */
+/* Lesen, Teil 1 — Wegweiser (Zuordnung Stockwerk) */
+{src:'dtoe',g:'Lesen · Teil 1',n:'21',t:'mc3',c:1,tx:'W',de:"In welches Stockwerk gehen Sie? — Sie möchten umziehen und brauchen Unterstützung.",en:"Which floor do you go to? — You want to move and need support.",o:[["a) EG",""],["b) 1. OG",""],["c) anderes Stockwerk",""]]},
+{src:'dtoe',g:'Lesen · Teil 1',n:'22',t:'mc3',c:2,tx:'W',de:"Sie suchen einen Babysitter.",en:"You are looking for a babysitter.",o:[["a) 1. OG",""],["b) 3. OG",""],["c) anderes Stockwerk",""]]},
+{src:'dtoe',g:'Lesen · Teil 1',n:'23',t:'mc3',c:2,tx:'W',de:"Sie möchten sich über Freizeitangebote informieren.",en:"You want to get information about leisure activities.",o:[["a) 2. OG",""],["b) 3. OG",""],["c) anderes Stockwerk",""]]},
+{src:'dtoe',g:'Lesen · Teil 1',n:'24',t:'mc3',c:2,tx:'W',de:"Sie möchten sich über Urlaub für Ihren Sohn (14 Jahre) informieren.",en:"You want to find out about holidays for your son (14 years old).",o:[["a) EG",""],["b) 4. OG",""],["c) anderes Stockwerk",""]]},
+{src:'dtoe',g:'Lesen · Teil 1',n:'25',t:'mc3',c:1,tx:'W',de:"Sie möchten ein Passbild machen.",en:"You want to take a passport photo.",o:[["a) 1. OG",""],["b) 2. OG",""],["c) anderes Stockwerk",""]]},
+/* Lesen, Teil 2 — Anzeigen zuordnen (a–h, x = keine Lösung) */
+{src:'dtoe',g:'Lesen · Teil 2',n:'26',t:'match',c:7,tx:'AN',de:"Welche Anzeige passt? — Sie möchten mit anderen Eltern über kleine Kinder reden.",en:"Which ad fits? — You want to talk to other parents about small children.",o:[["a) Kinderarztpraxis: Büro, ~20 Std/Woche","office, ~20 h/wk"],["b) Kartenspiel „Der lustige Bauernhof“ (6–12 J.)","card game 6-12"],["c) „Spiele ohne Grenzen“: Spielzeug abholen","collect toys"],["d) Second-Hand Cordoba: Kleidung bis 8 J.","used clothes up to 8 yrs"],["e) Spielwaren für die Kleinsten (bis 6 J.)","toy store <6 yrs"],["f) Verkäufer/in: Vollzeit, Feinkost","salesperson, full time"],["g) Ludwigshof: Tagesausflug Bauernhof","one day trip"],["h) Spielgruppe „Sterntaler“ (3–6 J.), Eltern plaudern","playgroup; parents chat"],["x) Keine passende Anzeige","no ad fits"]]},
+{src:'dtoe',g:'Lesen · Teil 2',n:'27',t:'match',c:0,tx:'AN',de:"Sie suchen eine Teilzeitstelle. Sie haben eine Ausbildung als Verkäuferin.",en:"You are looking for a PART-TIME job; you have training as a salesperson.",o:[["a) Kinderarztpraxis: Büro, ~20 Std/Woche","office, ~20 h/wk (part-time)"],["b) Kartenspiel „Der lustige Bauernhof“ (6–12 J.)","card game 6-12"],["c) „Spiele ohne Grenzen“: Spielzeug abholen","collect toys"],["d) Second-Hand Cordoba: Kleidung bis 8 J.","used clothes up to 8 yrs"],["e) Spielwaren für die Kleinsten (bis 6 J.)","toy store <6 yrs"],["f) Verkäufer/in: Vollzeit, Feinkost","salesperson, FULL TIME"],["g) Ludwigshof: Tagesausflug Bauernhof","one day trip"],["h) Spielgruppe „Sterntaler“ (3–6 J.)","playgroup"],["x) Keine passende Anzeige","no ad fits"]]},
+{src:'dtoe',g:'Lesen · Teil 2',n:'28',t:'match',c:8,tx:'AN',de:"Sie möchten mit Ihrer Familie Urlaub auf dem Bauernhof machen.",en:"You want to spend your HOLIDAYS with your family on a farm.",o:[["a) Kinderarztpraxis: Büro","office"],["b) Kartenspiel „Der lustige Bauernhof“","card game"],["c) „Spiele ohne Grenzen“","collect toys"],["d) Second-Hand Cordoba","used clothes"],["e) Spielwaren für die Kleinsten","toy store"],["f) Verkäufer/in: Vollzeit","full time salesperson"],["g) Ludwigshof: Tagesausflug (1 Tag)","ONE DAY trip"],["h) Spielgruppe „Sterntaler“","playgroup"],["x) Keine passende Anzeige","no ad fits (g is only 1 day)"]]},
+{src:'dtoe',g:'Lesen · Teil 2',n:'29',t:'match',c:4,tx:'AN',de:"Sie suchen ein Geschenk für Ihre 3-jährige Nichte.",en:"You are looking for a gift for your 3-year-old niece.",o:[["a) Kinderarztpraxis: Büro","office"],["b) Kartenspiel „Der lustige Bauernhof“ (6–12 J.)","card game 6-12 (too old)"],["c) „Spiele ohne Grenzen“","collect toys"],["d) Second-Hand Cordoba: Kleidung","used clothes"],["e) Spielwaren für die Kleinsten (bis 6 J.)","toy store for little ones <6 yrs"],["f) Verkäufer/in: Vollzeit","salesperson"],["g) Ludwigshof: Tagesausflug","trip"],["h) Spielgruppe „Sterntaler“","playgroup"],["x) Keine passende Anzeige","no ad fits"]]},
+{src:'dtoe',g:'Lesen · Teil 2',n:'30',t:'match',c:2,tx:'AN',de:"Sie möchten altes Spielzeug von Ihren Kindern abgeben.",en:"You want to give away your kids' old toys.",o:[["a) Kinderarztpraxis: Büro","office"],["b) Kartenspiel „Der lustige Bauernhof“","card game"],["c) „Spiele ohne Grenzen“: Spielzeug sammeln, Abholung gratis","collect toys, free pickup"],["d) Second-Hand Cordoba: Kleidung","used clothes"],["e) Spielwaren für die Kleinsten","toy store"],["f) Verkäufer/in: Vollzeit","salesperson"],["g) Ludwigshof: Tagesausflug","trip"],["h) Spielgruppe „Sterntaler“","playgroup"],["x) Keine passende Anzeige","no ad fits"]]},
+/* Lesen, Teil 3 — drei Texte (richtig/falsch + Multiple-Choice) */
+{src:'dtoe',g:'Lesen · Teil 3',n:'31',t:'rf',c:0,tx:'T1',de:"Richtig oder falsch? Herr Berger möchte Ruhe in der Nacht.",en:"Mr. Berger wants peace and quiet at night. True or False?"},
+{src:'dtoe',g:'Lesen · Teil 3',n:'32',t:'mc3',c:2,tx:'T1',de:"Die Arbeiter …",en:"The workers…",o:[["a) arbeiten auch jetzt noch bis 21 Uhr.","still work until 9 PM."],["b) arbeiten am Morgen nie vor 6 Uhr.","never start before 6 AM."],["c) arbeiten manchmal auch am Wochenende.","sometimes work on weekends too."]]},
+{src:'dtoe',g:'Lesen · Teil 3',n:'33',t:'rf',c:0,tx:'T2',de:"Richtig oder falsch? Frau Baumgartner hört bald auf zu arbeiten.",en:"Frau Baumgartner will soon stop working. True or False?"},
+{src:'dtoe',g:'Lesen · Teil 3',n:'34',t:'mc3',c:2,tx:'T2',de:"Die Eltern sollen …",en:"The parents should…",o:[["a) Frau Baumgartner ein Geschenk mitbringen.","bring Frau Baumgartner a gift."],["b) kommenden Samstag Getränke mitbringen.","bring drinks next Saturday."],["c) sagen, ob sie kommenden Samstag Zeit haben.","say if they have time next Saturday."]]},
+{src:'dtoe',g:'Lesen · Teil 3',n:'35',t:'rf',c:0,tx:'T3',de:"Richtig oder falsch? Herr Sanchez hat seine Versicherung gekündigt.",en:"Mr. Sanchez canceled his insurance. True or False?"},
+{src:'dtoe',g:'Lesen · Teil 3',n:'36',t:'mc3',c:0,tx:'T3',de:"Die Versicherung bietet Herrn Sanchez an, dass er …",en:"The insurance company offers him that…",o:[["a) ein halbes Jahr gratis versichert bleibt.","he stays insured for free for half a year."],["b) eine neue Versicherung bekommt.","he gets a new insurance."],["c) einen besseren Service bekommt.","he gets better service."]]},
+/* Lesen, Teil 4 — Packungsbeilage (richtig/falsch) */
+{src:'dtoe',g:'Lesen · Teil 4',n:'37',t:'rf',c:1,tx:'PB',de:"Richtig oder falsch? Auch Schwangere dürfen die Tabletten nehmen.",en:"Pregnant women can also take the pills. True or False?"},
+{src:'dtoe',g:'Lesen · Teil 4',n:'38',t:'rf',c:1,tx:'PB',de:"Richtig oder falsch? Ein 13-jähriges Kind darf eine Tablette pro Tag nehmen.",en:"A 13-year-old child can take one pill a day. True or False?"},
+{src:'dtoe',g:'Lesen · Teil 4',n:'39',t:'rf',c:1,tx:'PB',de:"Richtig oder falsch? Man soll die Tabletten vor dem Essen nehmen.",en:"You have to take the pills before eating. True or False?"},
+/* Lesen, Teil 5 — Lückentext (a, b oder c) */
+{src:'dtoe',g:'Lesen · Teil 5',n:'40',t:'mc3',c:0,tx:'L5',de:"Lücke 40: „… habe ich bei ____ einen Pullover bestellt.“",en:"Blank 40: …I ordered a sweater from ____. (formal)",o:[["a) Ihnen",""],["b) Euch",""],["c) Sie",""]]},
+{src:'dtoe',g:'Lesen · Teil 5',n:'41',t:'mc3',c:0,tx:'L5',de:"Lücke 41: „____ gestern das Paket kam, habe ich mich sehr gefreut.“",en:"Blank 41: ____ the package arrived yesterday, I was very happy. (single past action → als)",o:[["a) Als",""],["b) Ob",""],["c) Wenn",""]]},
+{src:'dtoe',g:'Lesen · Teil 5',n:'42',t:'mc3',c:2,tx:'L5',de:"Lücke 42: „Ich ____ einen blauen Pullover in Größe L …“",en:"Blank 42: I ____ a blue sweater… (wanted → wollte)",o:[["a) mochte",""],["b) sollte",""],["c) wollte",""]]},
+{src:'dtoe',g:'Lesen · Teil 5',n:'43',t:'mc3',c:0,tx:'L5',de:"Lücke 43: „…, ____ ich habe einen roten bekommen.“",en:"Blank 43: …, ____ I received a red one. (but → aber)",o:[["a) aber",""],["b) denn",""],["c) oder",""]]},
+{src:'dtoe',g:'Lesen · Teil 5',n:'44',t:'mc3',c:0,tx:'L5',de:"Lücke 44: „Und ____ wann bekomme ich den richtigen Pullover?“",en:"Blank 44: And ____ when will I get the right one? (until/by → bis)",o:[["a) bis",""],["b) seit",""],["c) von",""]]},
+{src:'dtoe',g:'Lesen · Teil 5',n:'45',t:'mc3',c:0,tx:'L5',de:"Lücke 45: „Bitte ____ Sie mir schnell!“",en:"Blank 45: Please ____ me quickly! (answer → antworten)",o:[["a) antworten",""],["b) geben",""],["c) sagen",""]]},
+/* Schreiben — tarjetas con texto modelo (autoevaluación) */
+{src:'dtoe',g:'Schreiben',n:'A',t:'schreiben',de:"Aufgabe A — Sie suchen ein gebrauchtes Auto. Herr Brandmeyer will sein Auto verkaufen (Anzeige im Supermarkt). Schreiben Sie ein E-Mail an Herrn Brandmeyer (mind. 100 Wörter).",en:"Task A — You are looking for a used car; Mr. Brandmeyer wants to sell his car (ad in supermarket). Write an e-mail to Mr. Brandmeyer (min. 100 words).",points:["Grund für Ihr Schreiben — Reason for your writing","Preis? — Price?","Alter und Zustand? — Age and condition?","Wann und wo anschauen? — When and where to view it?"],model:"Sehr geehrter Herr Brandmeyer,\n\nich habe Ihre Anzeige im Supermarkt gesehen und interessiere mich für Ihr Auto, weil ich gerade ein gebrauchtes Auto suche.\n\nKönnten Sie mir bitte sagen, wie viel das Auto kostet? Außerdem würde ich gern wissen, wie alt das Auto ist und in welchem Zustand es sich befindet. Hat es schon viele Kilometer?\n\nWenn der Preis und der Zustand passen, würde ich mir das Auto gern ansehen. Wann und wo könnte ich es besichtigen? Ich habe diese Woche am Nachmittag Zeit.\n\nÜber eine schnelle Antwort würde ich mich sehr freuen.\n\nMit freundlichen Grüßen,\n[Ihr Name]"},
+{src:'dtoe',g:'Schreiben',n:'B',t:'schreiben',de:"Aufgabe B — Ihre Krankenkassa will die Kosten für Ihre Zahnarztbehandlung nicht zahlen. Schreiben Sie ein E-Mail an Ihre Krankenkassa (mind. 100 Wörter).",en:"Task B — Your health insurance doesn't want to pay the costs for your dental treatment. Write an e-mail to your health insurance (min. 100 words).",points:["Grund für Ihr Schreiben — Reason for your writing","Grund für Ihren Besuch beim Zahnarzt — Reason for your visit to the dentist","Was Sie wollen — What you want","Was Sie tun, wenn nichts passiert — What you will do if nothing happens"],model:"Sehr geehrte Damen und Herren,\n\nich schreibe Ihnen, weil meine Krankenkassa die Kosten für meine Zahnarztbehandlung nicht bezahlen möchte. Damit bin ich nicht einverstanden.\n\nIch war beim Zahnarzt, weil ich starke Schmerzen hatte und eine Behandlung dringend nötig war. Der Zahnarzt hat mir gesagt, dass die Behandlung notwendig ist.\n\nDeshalb bitte ich Sie, die Kosten doch noch zu übernehmen. Bitte prüfen Sie meinen Fall noch einmal.\n\nWenn ich keine Antwort bekomme oder Sie die Kosten nicht zahlen, werde ich mich beschweren und eine Beratungsstelle um Hilfe bitten.\n\nMit freundlichen Grüßen,\n[Ihr Name]"},
+/* ===== DTÖ Übungstest 1 (ÖIF) · Lesen Teil 3–5 — respuestas por comprensión/gramática ===== */
+{src:'ut1',g:'Lesen · Teil 3',n:'31',t:'rf',c:0,tx:'UT1_T1',de:"Richtig oder falsch? Alle Mitglieder von einem Verein sollen sich treffen.",en:"All members of the association should meet. True or False?"},
+{src:'ut1',g:'Lesen · Teil 3',n:'32',t:'mc3',c:0,tx:'UT1_T1',de:"Am Herbstfest …",en:"At the autumn festival…",o:[["a) gibt es Programmangebote","there are activities/program"],["b) dürfen nur Vereinsmitglieder teilnehmen","only members can participate"],["c) muss man Eintritt bezahlen","you have to pay an entrance fee"]]},
+{src:'ut1',g:'Lesen · Teil 3',n:'33',t:'rf',c:0,tx:'UT1_T2',de:"Richtig oder falsch? Mehr körperliche Bewegung soll gefördert werden.",en:"More physical activity should be promoted. True or False?"},
+{src:'ut1',g:'Lesen · Teil 3',n:'34',t:'mc3',c:0,tx:'UT1_T2',de:"Eine aktuelle Studie in Österreich zeigt …",en:"A current study in Austria shows…",o:[["a) dass sich ein Teil der Jugendlichen zu wenig bewegt","that a portion of the youth moves too little"],["b) dass sich mehr als die Hälfte der Erwachsenen gesundheitsfördernd bewegt","that more than half of adults move in a healthy way"],["c) dass sich ältere Menschen überhaupt nicht gesund bewegen","that older people do not move healthily at all"]]},
+{src:'ut1',g:'Lesen · Teil 3',n:'35',t:'rf',c:0,tx:'UT1_T3',de:"Richtig oder falsch? Herr Broder hat seine Bestellung nicht bezahlt.",en:"Mr. Broder didn't pay for his order. True or False?"},
+{src:'ut1',g:'Lesen · Teil 3',n:'36',t:'mc3',c:2,tx:'UT1_T3',de:"Herr Broder …",en:"Mr. Broder…",o:[["a) muss keine Mahnspesen bezahlen","doesn't have to pay reminder fees"],["b) hat das Geld schon überwiesen","has already transferred the money"],["c) muss am 15.02. mehr bezahlen als vorher","must pay more on Feb 15 than before"]]},
+{src:'ut1',g:'Lesen · Teil 4',n:'37',t:'rf',c:0,tx:'UT1_HO',de:"Richtig oder falsch? Man darf bis 22.00 Uhr laut Musik hören.",en:"You can listen to loud music until 10 PM. True or False?"},
+{src:'ut1',g:'Lesen · Teil 4',n:'38',t:'rf',c:1,tx:'UT1_HO',de:"Richtig oder falsch? Wenn man auszieht, darf man sich einen Wohnungsschlüssel behalten.",en:"When moving out, you can keep one apartment key. True or False?"},
+{src:'ut1',g:'Lesen · Teil 4',n:'39',t:'rf',c:1,tx:'UT1_HO',de:"Richtig oder falsch? Man darf das Haustor zusperren.",en:"You can lock the front door. True or False?"},
+{src:'ut1',g:'Lesen · Teil 5',n:'40',t:'mc3',c:2,tx:'UT1_L5',de:"Lücke 40: „… den Urlaub buchen, ____ mir und meinem Mann das Kinderprogramm so gut gefällt.“",en:"Blank 40: …book, ____ my husband and I like the children's program so much. (because → weil)",o:[["a) obwohl",""],["b) doch",""],["c) weil",""]]},
+{src:'ut1',g:'Lesen · Teil 5',n:'41',t:'mc3',c:2,tx:'UT1_L5',de:"Lücke 41: „… an einem Ort verbringen, ____ eine Familie mit Kindern willkommen ist.“",en:"Blank 41: …in a place ____ a family with children is welcome. (where → wo)",o:[["a) weil",""],["b) denn",""],["c) wo",""]]},
+{src:'ut1',g:'Lesen · Teil 5',n:'42',t:'mc3',c:1,tx:'UT1_L5',de:"Lücke 42: „Unsere Kinder freuen sich ____ darauf, …“",en:"Blank 42: Our children are ____ looking forward to… (already → schon)",o:[["a) erst",""],["b) schon",""],["c) wie",""]]},
+{src:'ut1',g:'Lesen · Teil 5',n:'43',t:'mc3',c:2,tx:'UT1_L5',de:"Lücke 43: „… freuen sich darauf, ____ sie die Tiere streicheln und füttern dürfen.“",en:"Blank 43: …are looking forward to ____ they are allowed to pet and feed the animals. (that → dass)",o:[["a) wann",""],["b) als",""],["c) dass",""]]},
+{src:'ut1',g:'Lesen · Teil 5',n:'44',t:'mc3',c:0,tx:'UT1_L5',de:"Lücke 44: „Deshalb ____ wir gerne bei Ihnen buchen.“",en:"Blank 44: Therefore we would ____ to book with you. (like to → möchten)",o:[["a) möchten",""],["b) müssen",""],["c) sollen",""]]},
+{src:'ut1',g:'Lesen · Teil 5',n:'45',t:'mc3',c:1,tx:'UT1_L5',de:"Lücke 45: „Bitte schreiben Sie mir, ____ Sie uns zwei Doppelzimmer mit Frühstück vermieten können.“",en:"Blank 45: Please write to me ____ you can rent us two double rooms with breakfast. (whether/if → ob)",o:[["a) obwohl",""],["b) ob",""],["c) als",""]]},
+];
+
+const $=s=>document.querySelector(s);
+const LEARNED=3, KEY='nivb1_v3_en'; 
+const ICON=ok=>ok?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const srcById=id=>SOURCES.find(s=>s.id===id);
+const qid=e=>e.src+'|'+e.n;
+const gradable=e=>e.t!=='schreiben';
+const optsOf=e=> e.t==='rf'?[['Richtig','True'],['Falsch','False']] : (e.o||[]);
+
+let store; try{store=JSON.parse(localStorage.getItem(KEY))||{};}catch(e){store={};}
+store.boxes=store.boxes||{}; store.ui=store.ui||{};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}};
+const getBox=id=>(store.boxes[id]&&store.boxes[id].b)||0;
+const setBox=(id,b)=>{store.boxes[id]=store.boxes[id]||{b:0};store.boxes[id].b=b;};
+
+const state={source:store.ui.source||'cornelsen', mode:'learn', filter:store.ui.filter||'all',
+  trans:store.ui.trans!==false, repeat:store.ui.repeat!==false};
+
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);store.ui.theme=t;save();}
+applyTheme(store.ui.theme||(matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
+$('#themeBtn').onclick=()=>applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
+
+const poolSrc=()=>DATA.filter(e=>e.src===state.source);
+const poolFor=()=> state.filter==='all'?poolSrc():poolSrc().filter(e=>e.g===state.filter);
+const groupsFor=()=>{const s=[];poolSrc().forEach(e=>{if(!s.includes(e.g))s.push(e.g);});return s;};
+
+function renderSources(){
+  const box=$('#sources'); box.innerHTML='';
+  SOURCES.forEach(s=>{
+    const b=document.createElement('button'); b.className='src'; b.setAttribute('aria-selected',state.source===s.id);
+    b.innerHTML=`<b>${s.label}</b><small>${s.sub}</small>`;
+    b.onclick=()=>{state.source=s.id;store.ui.source=s.id;state.filter='all';store.ui.filter='all';save();renderSources();renderChips();updateFoot();if(state.mode==='learn')startLearn();else startTest();};
+    box.appendChild(b);
+  });
+}
+function updateFoot(){
+  const s = srcById(state.source);
+  const verif = s.id === 'cornelsen'
+    ? '✓ Answers VERIFIED cell by cell against the official Lösungsschlüssel (pg. 7 of the PDF).'
+    : 'Answers determined by comprehension/grammar rules. Very reliable.';
+  $('#foot-desc').innerHTML = `<b>${esc(s.label)}</b> · ${esc(s.desc)}<br>${esc(s.bandNote)}<br>${esc(verif)}`;
+}
+
+function renderChips(){
+  const box=$('#chips'); box.innerHTML='';
+  const mk=(id,label)=>{
+    const pool=id==='all'?poolSrc():poolSrc().filter(e=>e.g===id);
+    const grad=pool.filter(gradable); const dom=grad.filter(e=>getBox(qid(e))>=LEARNED).length;
+    const b=document.createElement('button'); b.className='chip'; b.setAttribute('aria-pressed',state.filter===id);
+    b.innerHTML=`${label} <small data-cnt="${id}">${grad.length?dom+'/'+grad.length:pool.length}</small>`;
+    b.onclick=()=>{state.filter=id;store.ui.filter=id;save();renderChips();startLearn();};
+    box.appendChild(b);
+  };
+  mk('all','All');
+  groupsFor().forEach(g=>mk(g,g));
+}
+function updateChipCounts(){
+  document.querySelectorAll('[data-cnt]').forEach(el=>{
+    const id=el.getAttribute('data-cnt');
+    const pool=id==='all'?poolSrc():poolSrc().filter(e=>e.g===id); const grad=pool.filter(gradable);
+    const dom=grad.filter(e=>getBox(qid(e))>=LEARNED).length; 
+    el.textContent=grad.length?dom+'/'+grad.length:pool.length;
+  });
+}
+
+function readHTML(e){
+  if(!e.tx||!TEXTS[e.tx]) return '';
+  const t=TEXTS[e.tx];
+  return `<details class="readbox" open><summary>📖 Reading · Text<span class="chev">▾</span></summary>
+    <div class="body">${esc(t.de)}${state.trans&&t.en?`<span class="src-en">${esc(t.en)}</span>`:''}</div></details>`;
+}
+function topHTML(e, extra){
+  const s = srcById(e.src);
+  const type = e.t==='schreiben'?'Writing':(e.t==='rf'?'True / False':(e.t==='match'?'Matching':'Multiple Choice'));
+  
+  let masteryHtml = '';
+  if(gradable(e) && state.mode === 'learn') {
+    const boxLvl = Math.min(getBox(qid(e)), LEARNED);
+    const stars = '⭐️'.repeat(boxLvl) + '☆'.repeat(LEARNED - boxLvl);
+    masteryHtml = `<span class="mastery" title="Mastery Level (Need ${LEARNED} correct in a row)">${stars}</span>`;
+  }
+
+  return `<div class="q-top">
+    <span class="q-tag">${esc(s.label)}</span>
+    <span class="q-type">${type}</span>
+    ${masteryHtml}
+    <span class="q-num">${e.g} · ${e.n}${extra||''}</span>
+  </div>`;
+}
+
+let q=[],answered=false,lastCorrect=false,autoT=null,sess={ok:0,no:0,streak:0},doneSet=new Set(),shuffled=false;
+
+function startLearn(){
+  clearTimeout(autoT); autoT=null; answered=false;
+  const pool=poolFor();
+  q = shuffled ? shuffle(pool.slice()) : pool.slice(); 
+  sess={ok:0,no:0,streak:0}; doneSet=new Set();
+  updateProg(); renderLearn();
+}
+
+function renderLearn(){
+  const st=$('#stage'); const e=q[0];
+  if(!e){renderDone();return;}
+  if(e.t==='schreiben'){renderSchreiben(e,false);window.scrollTo(0,0);return;}
+  
+  const list=optsOf(e);
+  st.innerHTML=`<div class="card in">${readHTML(e)}${topHTML(e)}
+    <div class="q-de">${esc(e.de)}</div>
+    <div class="q-en ${state.trans?'':'hide'}">${esc(e.en||'')}</div>
+    <div class="opts" id="opts">${list.map((o,i)=>`<button class="opt" data-i="${i}"><span class="key">${i+1}</span>
+       <span class="txt">${esc(o[0])}${o[1]?`<small>${esc(o[1])}</small>`:''}</span><span class="mark"></span></button>`).join('')}</div>
+    <div class="fb" id="fb"></div><div class="nav" id="nav"></div>
+    <div class="kbd-hint">Choose with <kbd>1–${list.length}</kbd> · next with <kbd>Enter</kbd></div></div>`;
+  $('#opts').onclick=ev=>{const b=ev.target.closest('.opt');if(b)answerLearn(+b.dataset.i);};
+  window.scrollTo(0,0);
+}
+
+function answerLearn(i){
+  if(answered)return; answered=true;
+  const e=q[0], correct=e.c, id=qid(e); lastCorrect=(i===correct);
+  
+  [...document.querySelectorAll('.opt')].forEach((b,idx)=>{
+    b.disabled=true;
+    if(idx===correct){b.classList.add('correct');b.querySelector('.mark').innerHTML=ICON(true);}
+    if(idx===i&&i!==correct){b.classList.add('wrong');b.querySelector('.mark').innerHTML=ICON(false);}
+    if(idx!==correct&&idx!==i)b.classList.add('dim');
+  });
+
+  if(lastCorrect){
+    setBox(id, Math.min(getBox(id)+1, LEARNED));
+    doneSet.add(id); sess.ok++; sess.streak++;
+    
+    const okEl = $('#tOk'); okEl.textContent='✓'+sess.ok; okEl.classList.add('pop');
+    setTimeout(()=>okEl.classList.remove('pop'), 200);
+
+    const m=['Correct!','Very good!','Great!','Exactly!','Perfect!'];
+    showFb(true, m[sess.ok%m.length]+(sess.streak>=3?` · streak 🔥${sess.streak}`:''));
+  } else {
+    setBox(id, 0); 
+    doneSet.delete(id); sess.no++; sess.streak=0;
+    
+    const noEl = $('#tNo'); noEl.textContent='✗'+sess.no; noEl.classList.add('pop');
+    setTimeout(()=>noEl.classList.remove('pop'), 200);
+
+    const sol=optsOf(e)[correct][0]; showFb(false,'Correct: '+sol);
+  }
+  
+  save(); updateProg(); updateChipCounts();
+  $('#nav').innerHTML=`<button class="btn primary" id="nextBtn">Next <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>`;
+  $('#nextBtn').onclick=advanceLearn;
+  if(lastCorrect) autoT=setTimeout(advanceLearn, 1050);
+}
+
+function showFb(ok,txt){const fb=$('#fb');fb.className='fb show '+(ok?'ok':'no');fb.innerHTML=ICON(ok)+'<span>'+esc(txt)+'</span>';}
+
+function advanceLearn(){
+  if(!answered)return; clearTimeout(autoT); autoT=null;
+  const e=q.shift();
+  if(state.repeat && !lastCorrect) {
+    q.splice(Math.min(3, q.length), 0, e); 
+  }
+  answered=false; updateProg(); renderLearn();
+}
+
+function renderSchreiben(e,revealed){
+  $('#stage').innerHTML=`<div class="card in schreib">${topHTML(e)}
+    <div class="q-de">${esc(e.de)}</div>
+    <div class="q-en ${state.trans?'':'hide'}">${esc(e.en||'')}</div>
+    <ul class="points">${e.points.map(p=>`<li>${esc(p)}</li>`).join('')}</ul>
+    ${revealed?`<div class="model"><h4>✍️ Model text (reference example)</h4>${esc(e.model)}</div>`:''}
+    <div class="nav" id="nav"></div>
+    <div class="kbd-hint">Write your text and then compare with the model. <kbd>Enter</kbd> ${revealed?'= next':'= view model'}</div></div>`;
+  const nav=$('#nav');
+  if(!revealed){
+    nav.innerHTML=`<button class="btn ghost" id="revBtn">View model text ✍️</button><button class="btn primary" id="okBtn">Done</button>`;
+    $('#revBtn').onclick=()=>renderSchreiben(e,true);
+  }
+  else { nav.innerHTML=`<button class="btn primary" id="okBtn">Next →</button>`; }
+  
+  $('#okBtn').onclick=()=>{
+    const id=qid(e); setBox(id, LEARNED); doneSet.add(id); save(); updateChipCounts(); 
+    q.shift(); answered=false; updateProg(); renderLearn();
+  };
+}
+
+function updateProg(){
+  const tot=poolFor().length;
+  $('#pbar').style.width=(tot?doneSet.size/tot*100:0)+'%';
+  $('#pCur').textContent=doneSet.size; $('#pTot').textContent=tot;
+  $('#tOk').textContent='✓'+sess.ok; $('#tNo').textContent='✗'+sess.no; $('#tStreak').textContent='🔥'+sess.streak;
+}
+
+function renderDone(){
+  const pool=poolFor();
+  $('#stage').innerHTML=`<div class="card in"><div class="done"><div class="em">🎉</div>
+    <h2>You completed this section!</h2>
+    <p>You answered all ${pool.length} questions. In this round: ✓ ${sess.ok} · ✗ ${sess.no}.</p>
+    <div class="nav"><button class="btn ghost" id="dRep">Review again</button><button class="btn primary" id="dTest">Take the placement test 📝</button></div></div></div>`;
+  $('#dTest').onclick=()=>switchMode('test');
+  $('#dRep').onclick=()=>{startLearn();};
+}
+
+let test=null;
+function startTest(){
+  const items=poolSrc().filter(gradable);
+  test={qs:items,cur:0,ok:0,no:0,wrong:[],answered:false};
+  $('#tTot').textContent=items.length; renderTest();
+}
+function renderTest(){
+  const e=test.qs[test.cur],list=optsOf(e);
+  test.answered=false;
+  $('#tCur').textContent=test.cur+1; $('#tpbar').style.width=(test.cur/test.qs.length*100)+'%';
+  $('#stage').innerHTML=`<div class="card in">${readHTML(e)}${topHTML(e,' · '+(test.cur+1)+'/'+test.qs.length)}
+    <div class="q-de">${esc(e.de)}</div><div class="q-en ${state.trans?'':'hide'}">${esc(e.en||'')}</div>
+    <div class="opts" id="opts">${list.map((o,i)=>`<button class="opt" data-i="${i}"><span class="key">${i+1}</span>
+      <span class="txt">${esc(o[0])}${o[1]?`<small>${esc(o[1])}</small>`:''}</span><span class="mark"></span></button>`).join('')}</div>
+    <div class="fb" id="fb"></div><div class="nav" id="nav"></div>
+    <div class="kbd-hint">Choose with <kbd>1–${list.length}</kbd> · at the end you'll see your estimated level</div></div>`;
+  $('#opts').onclick=ev=>{const b=ev.target.closest('.opt');if(b)answerTest(+b.dataset.i);};
+  window.scrollTo(0,0);
+}
+
+function answerTest(i){
+  if(test.answered)return; test.answered=true;
+  const e=test.qs[test.cur], correct=e.c;
+  [...document.querySelectorAll('.opt')].forEach((b,idx)=>{
+    b.disabled=true;
+    if(idx===correct){b.classList.add('correct');b.querySelector('.mark').innerHTML=ICON(true);}
+    if(idx===i&&i!==correct){b.classList.add('wrong');b.querySelector('.mark').innerHTML=ICON(false);}
+    if(idx!==correct&&idx!==i)b.classList.add('dim');
+  });
+  if(i===correct){test.ok++;showFb(true,'Correct!');}
+  else{test.no++;test.wrong.push({e,given:i});showFb(false,'Correct: '+optsOf(e)[correct][0]);}
+  
+  const last=test.cur===test.qs.length-1;
+  $('#nav').innerHTML=`<button class="btn primary" id="tNext">${last?'See my level 📊':'Next →'}</button>`;
+  $('#tNext').onclick=()=>{if(last)finishTest();else{test.cur++;renderTest();}};
+}
+
+function finishTest(){
+  const ok=test.ok, wrong=test.wrong, tot=test.qs.length;
+  const s=srcById(state.source); let lvl='', sub='';
+  if(s.bands){
+    lvl = ok>=33 ? 'B2.1' : (ok<=18 ? 'B1.1' : 'B1.2');
+    sub=`You got <b>${ok} out of ${tot}</b> correct. Cornelsen Scale: ${esc(s.bandNote)}.`;
+  } else {
+    const pct=tot?ok/tot:0; lvl=pct>=0.8?'B1':(pct>=0.55?'A2–B1':'A2'); 
+    sub=`You got <b>${ok} out of ${tot}</b> correct in Reading. Guidelines: ≥80% solid B1 · 55–79% on the way · <55% reinforce A2.`;
+  }
+  
+  $('#stage').innerHTML=`<div class="card in result"><div class="badge"><b>${esc(lvl)}</b></div>
+    <h2>Your estimated level</h2><div class="lvl">${esc(lvl)}</div><p class="sub">${sub}</p>
+    <div class="scorebar"><div class="b g"><div class="n">${ok}</div><div class="l">Correct</div></div>
+      <div class="b r"><div class="n">${tot-ok}</div><div class="l">Incorrect</div></div></div>
+    <div class="nav"><button class="btn primary" id="tAgain">Retake test</button><button class="btn ghost" id="tLearn">Back to studying</button></div></div>
+    ${wrong.length?`<div style="margin-top:22px">${wrong.map(w=>{const l=optsOf(w.e);return `<div class="card" style="margin-bottom:10px;padding:14px 16px">
+      <div style="font-weight:700;font-size:.95rem;margin-bottom:6px">${w.e.g} · ${w.e.n}: ${esc(w.e.de)}</div>
+      <div style="color:var(--green);font-weight:700;font-size:.9rem;display:flex;gap:7px;align-items:center">${ICON(true)} ${esc(l[w.e.c][0])}</div>
+      <div style="color:var(--red);font-weight:600;font-size:.88rem;display:flex;gap:7px;align-items:center;margin-top:3px">${ICON(false)} Your answer: ${esc(l[w.given][0])}</div></div>`;}).join('')}</div>`:''}`;
+  
+  $('#tAgain').onclick=startTest; $('#tLearn').onclick=()=>switchMode('learn');
+  window.scrollTo(0,0);
+}
+
+function switchMode(m){
+  state.mode=m;
+  document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.mode===m));
+  clearTimeout(autoT);
+  $('#learnCtl').style.display=m==='learn'?'block':'none';
+  $('#testCtl').style.display=m==='test'?'block':'none';
+  if(m==='learn')startLearn();else startTest();
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>switchMode(b.dataset.mode));
+
+$('#tgTrans').checked=state.trans; $('#tgRepeat').checked=state.repeat;
+$('#tgTrans').onchange=e=>{state.trans=e.target.checked; store.ui.trans=state.trans; save(); if(state.mode==='learn')renderLearn(); else renderTest();};
+$('#tgRepeat').onchange=e=>{state.repeat=e.target.checked; store.ui.repeat=state.repeat; save(); startLearn();};
+
+$('#shuffleBtn').onclick=()=>{
+  shuffled=!shuffled;
+  const l=$('#shuffleLbl'); if(l) l.textContent=shuffled?'In order':'Shuffle';
+  $('#shuffleBtn').classList.toggle('on',shuffled);
+  startLearn();
+};
+
+let resetConfirmTimeout = null;
+$('#resetBtn').onclick=()=>{
+  const btn = $('#resetBtn');
+  if(!btn.classList.contains('confirming')){
+    btn.classList.add('confirming');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>Are you sure?`;
+    btn.style.color = 'var(--red)'; btn.style.borderColor = 'var(--red)';
+    resetConfirmTimeout = setTimeout(() => {
+      btn.classList.remove('confirming');
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>Reset`;
+      btn.style.color = ''; btn.style.borderColor = '';
+    }, 3000);
+  } else {
+    clearTimeout(resetConfirmTimeout);
+    btn.classList.remove('confirming');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>Reset`;
+    btn.style.color = ''; btn.style.borderColor = '';
+    poolFor().forEach(e=>setBox(qid(e),0)); save(); renderChips(); startLearn();
+  }
+};
+
+$('#exportBtn').onclick = () => {
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(store));
+  const dlNode = document.createElement('a');
+  dlNode.setAttribute("href", dataStr);
+  dlNode.setAttribute("download", "B1_German_Progress.json");
+  dlNode.click();
+};
+
+$('#importBtn').onclick = () => { $('#fileIn').click(); };
+$('#fileIn').onchange = (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (evt) => {
+    try {
+      const imported = JSON.parse(evt.target.result);
+      if(imported && imported.boxes) {
+        store = imported; save(); location.reload();
+      } else { alert("Oops! This doesn't look like a valid progress file."); }
+    } catch(err) { alert("Error reading the file."); }
+  };
+  reader.readAsText(file);
+};
+
+document.addEventListener('keydown',ev=>{
+  if(/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;
+  if(state.mode==='learn'){
+    const e=q[0]; if(!e)return;
+    if(e.t==='schreiben'){
+      if(ev.key==='Enter'){
+        ev.preventDefault();
+        const rev=document.querySelector('.model');
+        if(rev)$('#okBtn').click(); else {const r=$('#revBtn'); if(r)r.click();}
+      }
+      return;
+    }
+    const n=optsOf(e).length;
+    if(!answered&&/^[1-9]$/.test(ev.key)){
+      const i=+ev.key-1;
+      if(i<n){ev.preventDefault();answerLearn(i);}
+    }
+    else if(answered&&(ev.key==='Enter'||ev.key===' '||ev.key==='ArrowRight')){
+      ev.preventDefault(); advanceLearn();
+    }
+  } else if(state.mode==='test'&&test){
+    const e=test.qs[test.cur], n=optsOf(e).length;
+    if(!test.answered&&/^[1-9]$/.test(ev.key)){
+      const i=+ev.key-1;
+      if(i<n){ev.preventDefault(); answerTest(i);}
+    }
+    else if(test.answered&&(ev.key==='Enter'||ev.key===' '||ev.key==='ArrowRight')){
+      ev.preventDefault(); const nx=$('#tNext'); if(nx)nx.click();
+    }
+  }
+});
+
+renderSources(); renderChips(); updateFoot(); startLearn();
+</script>
+</body>
+</html>
